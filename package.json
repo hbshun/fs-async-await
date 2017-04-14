@@ -1,0 +1,27 @@
+{
+  "name": "fs-async-await",
+  "version": "0.0.1",
+  "description": "fs api async await",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hbshun/fs-async-await.git"
+  },
+  "keywords": [
+    "fs",
+    "async",
+    "await"
+  ],
+  "author": "hbshun <bb@bbyy.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hbshun/fs-async-await/issues"
+  },
+  "homepage": "https://github.com/hbshun/fs-async-await#readme",
+  "engines": {
+    "node": ">= 7.6.0"
+  }
+}
