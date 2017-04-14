@@ -1,4 +1,4 @@
-const fs = require('../index.js')();
+const fs = require('../index.js');
 
 async function test() {
   const dir = await fs.readdirAsync(__dirname,'utf8');

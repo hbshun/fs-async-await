@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const suffix = 'Async';
 const keys = [
   'access',
   'exists',
@@ -38,21 +39,12 @@ const keys = [
   'mkdtemp'
 ];
 
+keys.forEach(key => {
+  fs[key + suffix] = function() {
+    return new Promise((resolve, reject) => {
+      fs[key].apply(fs, Array.prototype.slice.apply(arguments).concat((err, data) => err ? reject(err) : resolve(data)));
+    });
+  };
+});
 
-/**
- * @params opt
- * @params opt.suffix 'Async'
- */
-
-module.exports = (opt) => {
-  opt = opt || {};
-  const suffix = opt.suffix || 'Async';
-  keys.forEach(key => {
-    fs[key + suffix] = function () {
-      return new Promise((resolve, reject) => {
-        fs[key].apply(fs, Array.prototype.slice.apply(arguments).concat((err, data) => err ? reject(err) : resolve(data)));
-      });
-    };
-  });
-  return fs;
-};
+module.exports = fs;
