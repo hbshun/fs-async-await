@@ -1,6 +1,6 @@
 {
   "name": "fs-async-await",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "fs api async await",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/hbshun/fs-async-await#readme",
   "engines": {
     "node": ">= 7.6.0"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1"
   }
 }

@@ -4,47 +4,52 @@ const fs = require('fs');
 const suffix = 'Async';
 const keys = [
   'access',
-  'exists',
-  'readFile',
-  'close',
-  'open',
-  'read',
-  'write',
-  'rename',
-  'truncate',
-  'ftruncate',
-  'rmdir',
-  'fdatasync',
-  'fsync',
-  'mkdir',
-  'readdir',
-  'fstat',
-  'lstat',
-  'stat',
-  'readlink',
-  'symlink',
-  'link',
-  'unlink',
-  'fchmod',
-  'lchmod',
-  'chmod',
-  'lchown',
-  'fchown',
-  'chown',
-  'utimes',
-  'futimes',
-  'writeFile',
   'appendFile',
+  'chmod',
+  'chown',
+  'close',
+  'copyFile',
+  'exists',
+  'fchmod',
+  'fchown',
+  'fdatasync',
+  'fstat',
+  'fsync',
+  'ftruncate',
+  'futimes',
+  'lchmod',
+  'lchown',
+  'link',
+  'lstat',
+  'mkdir',
+  'mkdtemp',
+  'open',
+  'readFile',
+  'read',
+  'readdir',
+  'readlink',
   'realpath',
-  'mkdtemp'
+  'rename',
+  'rmdir',
+  'stat',
+  'symlink',
+  'truncate',
+  'unlink',
+  'utimes',
+  'writeFile',
+  'write'
 ];
 
 keys.forEach(key => {
-  fs[key + suffix] = function() {
-    return new Promise((resolve, reject) => {
-      fs[key].apply(fs, Array.prototype.slice.apply(arguments).concat((err, data) => err ? reject(err) : resolve(data)));
-    });
-  };
+  fs[`${key}${suffix}`] = (...args) => new Promise((resolve, reject) => {
+    fs[key].apply(null, args.concat((err, data) => {
+      if ('exists' === key) {
+        resolve(err);
+      } else {
+        err ? reject(err) : resolve(data)
+      }
+    }));
+  });
 });
 
 module.exports = fs;
